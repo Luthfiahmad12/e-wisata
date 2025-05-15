@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\LoginRequest;
+use App\Http\Requests\RegisterRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class AuthController extends Controller
 {
@@ -39,9 +41,30 @@ class AuthController extends Controller
         return view('auth.register');
     }
 
-    public function registerPost()
+    public function registerPost(RegisterRequest $request)
     {
-        return;
+        $user = User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => $request->password,
+        ]);
+
+        if ($request->hasFile('photo')) {
+            $file = $request->file('photo');
+            $name = $file->hashName();
+            $filepath = Storage::disk('uploads')->putFileAs('user', $file, $name);
+
+            $user->customer()->create([
+                'telepon' => $request->telepon,
+                'jk' => $request->jk,
+                'address' => $request->address,
+                'photo' => $filepath
+            ]);
+        }
+
+        Auth::login($user);
+
+        return redirect()->intended('/dashboard');
     }
 
     public function logout(Request $request)
