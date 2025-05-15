@@ -27,26 +27,15 @@
                         <div class="form-control-feedback text-danger">{{ $message }}</div>
                     @enderror
                 </div>
-                {{-- <div class="mb-3">
-                    <div class="utility">
-                        <div class="form-check">
-                            <label class="form-check-label">
-                                <input class="form-check-input" type="checkbox">
-                                <span class="label-text">
-                                    Stay Signed in
-                                </span>
-                            </label>
-                        </div>
-                        <p class="semibold-text mb-2">
-                            <a href="#" data-toggle="flip">Forgot Password ?</a>
-                        </p>
-                    </div>
-                </div> --}}
                 <div class="mb-3 btn-container d-grid">
                     <button type="submit" class="btn btn-primary btn-block">
                         <i class="bi bi-box-arrow-in-right me-2 fs-5"></i>
                         SIGN IN
                     </button>
+                </div>
+                <div class="d-flex justify-content-center">
+                    Belum punya akun?
+                    <a href="{{ route('register') }}" class="ps-2">Registrasi</a>
                 </div>
             </form>
         </div>

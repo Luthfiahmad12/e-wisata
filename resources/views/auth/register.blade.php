@@ -6,8 +6,8 @@
     <section class="login-content">
         <div class="logo">
         </div>
-        <div class="container h-100">
-            <div class="row d-flex justify-content-center align-items-center h-100">
+        <div class="container">
+            <div class="row d-flex justify-content-center align-items-center">
                 <div class="col-xl-9">
 
                     <h1 class="text-white text-center mb-4">Register</h1>
@@ -75,13 +75,10 @@
                                         <h6 class="mb-0">Gender</h6>
                                     </div>
                                     <div class="col-md-9 pe-5">
-                                        <select name="jk"
-                                            class="form-control @error('jk')
-                                            is-invalid
-                                        @enderror">
+                                        <select name="jk" class="form-control @error('jk') is-invalid @enderror">
                                             <option value="">--pilih gender--</option>
-                                            <option value="m">Pria</option>
-                                            <option value="f">Wanita</option>
+                                            <option value="m" {{ old('jk') == 'm' ? 'selected' : '' }}>Pria</option>
+                                            <option value="f" {{ old('jk') == 'f' ? 'selected' : '' }}>Wanita</option>
                                         </select>
                                         @error('jk')
                                             <div class="form-control-feedback text-danger">{{ $message }}</div>
@@ -95,9 +92,7 @@
                                     </div>
                                     <div class="col-md-9 pe-5">
                                         <input type="file" name="photo"
-                                            class="form-control @error('photo')
-                                            is-invalid
-                                        @enderror" />
+                                            class="form-control @error('photo') is-invalid @enderror" />
                                         @error('photo')
                                             <div class="form-control-feedback text-danger">{{ $message }}</div>
                                         @enderror
@@ -109,12 +104,7 @@
                                         <h6 class="mb-0">Alamat</h6>
                                     </div>
                                     <div class="col-md-9 pe-5">
-                                        <textarea name="address" cols="30" rows="3"
-                                            class="form-control @error('address')
-                                            is-invalid
-                                        @enderror">
-                                            {{ old('address') }}
-                                        </textarea>
+                                        <textarea name="address" cols="30" rows="3" class="form-control @error('address') is-invalid @enderror">{{ old('address') }}</textarea>
                                         @error('address')
                                             <div class="form-control-feedback text-danger">{{ $message }}</div>
                                         @enderror
@@ -123,12 +113,23 @@
 
                                 <hr class="mx-n3">
 
-                                <button type="submit" class="btn btn-primary btn-block btn-md mb-6">Register</button>
+                                <div class="d-flex justify-content-center mb-6">
+                                    <button type="submit" class="btn btn-primary btn-block btn-md btn-lg">Register</button>
+                                </div>
+
                             </div>
                         </form>
+                        <div class="d-flex justify-content-center mb-3">
+                            Sudah punya akun?
+                            <a href="{{ route('login') }}" class="ps-2">Login</a>
+                        </div>
                     </div>
+
+                    <div class="logo"></div>
+
                 </div>
             </div>
         </div>
+
     </section>
 @endsection

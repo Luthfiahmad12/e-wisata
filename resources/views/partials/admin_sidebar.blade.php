@@ -1,6 +1,11 @@
 <aside class="app-sidebar">
-    <div class="app-sidebar__user"><img class="app-sidebar__user-avatar"
-            src="https://randomuser.me/api/portraits/men/1.jpg" alt="User Image">
+    <div class="app-sidebar__user">
+        @if (auth()->user()->customer && auth()->user()->customer->photo)
+            <img class="app-sidebar__user-avatar" src="{{ asset('uploads/' . auth()->user()->customer->photo) }}"
+                alt="User Image" height="100" width="100" />
+        @else
+            <img class="app-sidebar__user-avatar" src="https://placehold.co/100x100?text=A" alt="User Image" />
+        @endif
         <div>
             <p class="app-sidebar__user-name">{{ auth()->user()->name }}</p>
             <p class="app-sidebar__user-designation">{{ auth()->user()->email }}</p>
