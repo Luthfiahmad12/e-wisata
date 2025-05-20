@@ -23,6 +23,8 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->group(function () {
     Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
 
     Route::resource('fasilitas', FasilitasController::class);
+
+
 });
 
 Route::middleware(['auth', 'role:user'])->group(function () {
