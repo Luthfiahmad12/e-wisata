@@ -15,6 +15,6 @@ class FasilitasWisata extends Model
 
     public function fasilitas()
     {
-        return $this->belongsTo(fasilitas::class);
+        return $this->belongsTo(Fasilitas::class);
     }
 }

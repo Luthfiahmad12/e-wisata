@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Fasilitas;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -22,5 +23,13 @@ class DatabaseSeeder extends Seeder
             'password' => 'password',
             'role' => 'admin'
         ]);
+
+        $data = ['ac', 'toilet', 'kamar mandi', 'wifi'];
+
+        foreach ($data as $item) {
+            Fasilitas::create([
+                'name' => $item
+            ]);
+        }
     }
 }

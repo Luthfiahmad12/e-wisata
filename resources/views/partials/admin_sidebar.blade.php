@@ -27,6 +27,12 @@
                     Daftar Fasilitas
                 </span>
             </a>
+            <a class="app-menu__item {{ request()->is('wisata*') ? 'active' : '' }}" href="{{ route('wisata.index') }}">
+                <i class="app-menu__icon bi bi-list-ul"></i>
+                <span class="app-menu__label">
+                    Daftar Wisata
+                </span>
+            </a>
         </li>
     </ul>
 </aside>
