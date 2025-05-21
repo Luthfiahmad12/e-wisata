@@ -26,7 +26,7 @@
     @vite('resources/js/app.js')
 </head>
 
-<body>
+<body class="app sidebar-mini">
     @include('partials.admin_navbar')
 
     @include('partials.admin_sidebar')
