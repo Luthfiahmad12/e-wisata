@@ -43,6 +43,15 @@
                             <div class="form-control-feedback text-danger">{{ $message }}</div>
                         @enderror
                     </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Menu</label>
+                        <input type="text" name="menu" id="tags_menu"
+                            class="form-control @error('menu') is-invalid @enderror">
+                        @error('menu')
+                            <div class="form-control-feedback text-danger">{{ $message }}</div>
+                        @enderror
+                    </div>
                     <div class="flex justify-content-start">
                         <button type="submit" class="btn btn-primary">
                             Submit
@@ -55,8 +64,13 @@
 
     @push('scripts')
         <script>
-            $(document).ready(function() {
-                $('#select2').select2();
+            document.addEventListener('DOMContentLoaded', function() {
+                $(document).ready(function() {
+                    $('#select2').select2();
+                });
+
+                var input = document.getElementById('tags_menu');
+                new Tagify(input);
             });
         </script>
     @endpush

@@ -17,6 +17,7 @@
                     <th>No</th>
                     <th>Nama Rumah Makan</th>
                     <th>Fasilitas Rumah Makan</th>
+                    <th>Menu</th>
                     <th>Deskripsi</th>
                     <th>Aksi</th>
                 </tr>
@@ -33,7 +34,14 @@
                                 </span>
                             @endforeach
                         </td>
-                        <td>{{ $item->desc }}</td>
+                        <td>
+                            @foreach ($item->menu as $menu)
+                                <span class="badge text-bg-secondary fs-6 text-capitalize">
+                                    {{ $menu['value'] }}
+                                </span>
+                            @endforeach
+                        </td>
+                        <td>{{ Str::limit($item->desc, 20) }}</td>
                         <td>
                             <div class="d-flex gap-2">
                                 <a href="{{ route('rumah_makan.edit', $item) }}" class="btn btn-warning">
