@@ -26,15 +26,17 @@ Route::post('logout', [AuthController::class, 'logout'])->name('logout');
 Route::middleware(['auth', 'role:admin'])->prefix('admin')->group(function () {
     Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
 
-    Route::resource('fasilitas', FasilitasController::class)->parameters(['fasilitas' => 'fasilitas']);
+    Route::prefix('master-data')->group(function () {
+        Route::resource('fasilitas', FasilitasController::class)->parameters(['fasilitas' => 'fasilitas']);
 
-    Route::resource('wisata', WisataController::class)->parameters(['wisata' => 'wisata']);
+        Route::resource('wisata', WisataController::class)->parameters(['wisata' => 'wisata']);
 
-    Route::resource('rumah_makan', RumahMakanController::class);
+        Route::resource('rumah_makan', RumahMakanController::class);
 
-    Route::resource('penginapans', PenginapanController::class);
+        Route::resource('penginapans', PenginapanController::class);
 
-    Route::resource('transportasi', TransportasiController::class);
+        Route::resource('transportasi', TransportasiController::class);
+    });
 });
 
 Route::middleware(['auth', 'role:user'])->group(function () {
