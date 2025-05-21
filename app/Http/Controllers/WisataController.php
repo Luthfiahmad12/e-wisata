@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\WisataRequest;
+use App\Models\Fasilitas;
 use App\Models\Wisata;
 use Illuminate\Http\Request;
 
@@ -12,7 +14,7 @@ class WisataController extends Controller
      */
     public function index()
     {
-        //
+        return view('wisata.index', ['wisata' => Wisata::latest()->get()]);
     }
 
     /**
@@ -20,15 +22,28 @@ class WisataController extends Controller
      */
     public function create()
     {
-        //
+        return view('wisata.create', ['fasilitas' => Fasilitas::all()]);
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(WisataRequest $request)
     {
-        //
+        $validatedData = $request->validated();
+
+        $wisata = Wisata::create([
+            'name' => $validatedData['name'],
+            'desc' => $validatedData['desc'],
+        ]);
+
+        foreach ($validatedData['fasilitas'] as $fasilitasId) {
+            $wisata->details()->create([
+                'fasilitas_id' => $fasilitasId
+            ]);
+        }
+
+        return to_route('wisata.index')->with('success', 'berhasil tambah data');
     }
 
     /**
@@ -44,15 +59,33 @@ class WisataController extends Controller
      */
     public function edit(Wisata $wisata)
     {
-        //
+        return view('wisata.edit', [
+            'fasilitas' => Fasilitas::all(),
+            'wisata' => $wisata,
+            'selectedFasilitasIds' => $wisata->details->pluck('fasilitas_id')->toArray()
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Wisata $wisata)
+    public function update(WisataRequest $request, Wisata $wisata)
     {
-        //
+        $validatedData = $request->validated();
+        $wisata->update([
+            'name' => $validatedData['name'],
+            'desc' => $validatedData['desc'],
+        ]);
+
+        $wisata->details()->delete();
+
+        foreach ($validatedData['fasilitas'] as $fasilitasId) {
+            $wisata->details()->create([
+                'fasilitas_id' => $fasilitasId
+            ]);
+        }
+
+        return to_route('wisata.index')->with('success', 'berhasil update data');
     }
 
     /**
@@ -60,6 +93,12 @@ class WisataController extends Controller
      */
     public function destroy(Wisata $wisata)
     {
-        //
+        if ($wisata->details) {
+            $wisata->details()->delete();
+        }
+
+        $wisata->delete();
+
+        return back()->with('warning', 'data berhasil dihapus');
     }
 }

@@ -4,6 +4,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\FasilitasController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\WisataController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -22,9 +23,9 @@ Route::post('logout', [AuthController::class, 'logout'])->name('logout');
 Route::middleware(['auth', 'role:admin'])->prefix('admin')->group(function () {
     Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
 
-    Route::resource('fasilitas', FasilitasController::class);
+    Route::resource('fasilitas', FasilitasController::class)->parameters(['fasilitas' => 'fasilitas']);
 
-
+    Route::resource('wisata', WisataController::class)->parameters(['wisata' => 'wisata']);
 });
 
 Route::middleware(['auth', 'role:user'])->group(function () {
