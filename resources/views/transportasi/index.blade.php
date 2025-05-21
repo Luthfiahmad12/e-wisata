@@ -15,8 +15,8 @@
             <thead>
                 <tr>
                     <th>No</th>
-                    <th>Nama Penginapan</th>
-                    <th>Fasilitas Penginapan</th>
+                    <th>Nama Transportasi</th>
+                    <th>Fasilitas Transportasi</th>
                     <th>Deskripsi</th>
                     <th>Aksi</th>
                 </tr>
