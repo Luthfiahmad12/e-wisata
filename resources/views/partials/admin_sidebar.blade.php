@@ -33,6 +33,12 @@
                     Daftar Wisata
                 </span>
             </a>
+            <a class="app-menu__item {{ request()->is('rumahMakan*') ? 'active' : '' }}" href="{{ route('rumah_makan.index') }}">
+                <i class="app-menu__icon bi bi-list-ul"></i>
+                <span class="app-menu__label">
+                    Daftar Rumah Makan
+                </span>
+            </a>
         </li>
     </ul>
 </aside>

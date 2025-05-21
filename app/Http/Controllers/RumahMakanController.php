@@ -3,65 +3,76 @@
 namespace App\Http\Controllers;
 
 use App\Models\RumahMakan;
+use App\Models\Fasilitas;
 use Illuminate\Http\Request;
+use App\Http\Requests\RumahMakanRequest;
 
 class RumahMakanController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
         return view('rumah_makan.index', [
-            'rumah_makan' => RumahMakan::all()
+            'rumahMakan' => RumahMakan::with('details.fasilitas')->get()
         ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
-        //
+        return view('rumah_makan.create', ['fasilitas' => Fasilitas::all()]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
+    public function store(RumahMakanRequest $request)
     {
-        //
+        $validatedData = $request->validated();
+
+        $rumahMakan = RumahMakan::create([
+            'name' => $validatedData['name'],
+            'desc' => $validatedData['desc'],
+        ]);
+
+        foreach ($validatedData['fasilitas'] as $fasilitasId) {
+            $rumahMakan->details()->create([
+                'fasilitas_id' => $fasilitasId
+            ]);
+        }
+
+        return to_route('rumah_makan.index')->with('success', 'Berhasil tambah data');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(RumahMakan $rumahMakan)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(RumahMakan $rumahMakan)
     {
-        //
+        return view('rumah_makan.edit', [
+            'fasilitas' => Fasilitas::all(),
+            'rumahMakan' => $rumahMakan,
+            'selectedFasilitasIds' => $rumahMakan->details->pluck('fasilitas_id')->toArray()
+        ]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, RumahMakan $rumahMakan)
+    public function update(RumahMakanRequest $request, RumahMakan $rumahMakan)
     {
-        //
+        $validatedData = $request->validated();
+
+        $rumahMakan->update([
+            'name' => $validatedData['name'],
+            'desc' => $validatedData['desc'],
+        ]);
+
+        $rumahMakan->details()->delete();
+
+        foreach ($validatedData['fasilitas'] as $fasilitasId) {
+            $rumahMakan->details()->create([
+                'fasilitas_id' => $fasilitasId
+            ]);
+        }
+
+        return to_route('rumah_makan.index')->with('success', 'Berhasil update data');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(RumahMakan $rumahMakan)
     {
-        //
+        $rumahMakan->details()->delete();
+        $rumahMakan->delete();
+
+        return back()->with('warning', 'Data berhasil dihapus');
     }
 }
