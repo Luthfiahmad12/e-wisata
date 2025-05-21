@@ -40,6 +40,13 @@
                     Daftar Penginapan
                 </span>
             </a>
+            <a class="app-menu__item {{ request()->is('transportasi*') ? 'active' : '' }}"
+                href="{{ route('transportasi.index') }}">
+                <i class="app-menu__icon bi bi-list-ul"></i>
+                <span class="app-menu__label">
+                    Daftar Transportasi
+                </span>
+            </a>
         </li>
     </ul>
 </aside>

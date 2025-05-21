@@ -5,6 +5,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\FasilitasController;
 use App\Http\Controllers\PenginapanController;
 use App\Http\Controllers\RumahMakanController;
+use App\Http\Controllers\TransportasiController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\WisataController;
 use Illuminate\Support\Facades\Route;
@@ -32,6 +33,8 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->group(function () {
     Route::resource('rumah_makan', RumahMakanController::class);
 
     Route::resource('penginapans', PenginapanController::class);
+
+    Route::resource('transportasi', TransportasiController::class);
 });
 
 Route::middleware(['auth', 'role:user'])->group(function () {
