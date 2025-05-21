@@ -33,6 +33,13 @@
                     Daftar Wisata
                 </span>
             </a>
+            <a class="app-menu__item {{ request()->is('penginapans*') ? 'active' : '' }}"
+                href="{{ route('penginapans.index') }}">
+                <i class="app-menu__icon bi bi-list-ul"></i>
+                <span class="app-menu__label">
+                    Daftar Penginapan
+                </span>
+            </a>
         </li>
     </ul>
 </aside>

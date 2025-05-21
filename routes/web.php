@@ -3,6 +3,7 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\FasilitasController;
+use App\Http\Controllers\PenginapanController;
 use App\Http\Controllers\RumahMakanController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\WisataController;
@@ -29,6 +30,8 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->group(function () {
     Route::resource('wisata', WisataController::class)->parameters(['wisata' => 'wisata']);
 
     Route::resource('rumah_makan', RumahMakanController::class);
+
+    Route::resource('penginapans', PenginapanController::class);
 });
 
 Route::middleware(['auth', 'role:user'])->group(function () {
