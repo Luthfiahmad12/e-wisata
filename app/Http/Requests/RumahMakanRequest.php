@@ -22,7 +22,11 @@ class RumahMakanRequest extends FormRequest
             ],
             'fasilitas' => 'required|array|min:1|exists:fasilitas,id',
             'desc' => 'required|string',
+<<<<<<< HEAD
             'menu' => 'required|array|min:1'
+=======
+            'menu' => 'required|string',
+>>>>>>> 1c1117dc1932bd01c86c1bd638a7746d97e1d1b9
         ];
     }
 
@@ -36,9 +40,13 @@ class RumahMakanRequest extends FormRequest
             'fasilitas.min' => 'Pilih minimal satu fasilitas.',
             'fasilitas.exists' => 'Salah satu fasilitas yang dipilih tidak valid.',
             'desc.required' => 'Deskripsi harus diisi.',
+<<<<<<< HEAD
             'desc.string' => 'Deskripsi harus berupa teks.',
             'menu.array' => 'menu harus berupa daftar.',
             'menu.min' => 'Pilih minimal satu menu.',
+=======
+            'menu.required' => 'Menu harus diisi.',
+>>>>>>> 1c1117dc1932bd01c86c1bd638a7746d97e1d1b9
         ];
     }
 }

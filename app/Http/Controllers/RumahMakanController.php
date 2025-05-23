@@ -12,7 +12,8 @@ class RumahMakanController extends Controller
     public function index()
     {
         return view('rumah_makan.index', [
-            'rumahMakan' => RumahMakan::with('details.fasilitas')->get()
+            'rumahMakan' => RumahMakan::with('details.fasilitas')
+                ->get()
         ]);
     }
 
@@ -28,6 +29,7 @@ class RumahMakanController extends Controller
         $rumahMakan = RumahMakan::create([
             'name' => $validatedData['name'],
             'desc' => $validatedData['desc'],
+            'menu' => json_decode($validatedData['menu'], true),
         ]);
 
         foreach ($validatedData['fasilitas'] as $fasilitasId) {
@@ -41,10 +43,15 @@ class RumahMakanController extends Controller
 
     public function edit(RumahMakan $rumahMakan)
     {
+        $menu = [];
+        foreach ($rumahMakan->menu as $value) {
+            $menu[] =  $value['value'];
+        }
         return view('rumah_makan.edit', [
             'fasilitas' => Fasilitas::all(),
             'rumahMakan' => $rumahMakan,
-            'selectedFasilitasIds' => $rumahMakan->details->pluck('fasilitas_id')->toArray()
+            'selectedFasilitasIds' => $rumahMakan->details->pluck('fasilitas_id')->toArray(),
+            'menu' => implode(', ', $menu)
         ]);
     }
 
@@ -55,6 +62,7 @@ class RumahMakanController extends Controller
         $rumahMakan->update([
             'name' => $validatedData['name'],
             'desc' => $validatedData['desc'],
+            'menu' => json_decode($validatedData['menu'], true),
         ]);
 
         $rumahMakan->details()->delete();

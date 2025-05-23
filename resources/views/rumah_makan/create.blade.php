@@ -43,9 +43,17 @@
                             <div class="form-control-feedback text-danger">{{ $message }}</div>
                         @enderror
                     </div>
+<<<<<<< HEAD
                     <div class="mb-3">
                         <label class="form-label">Menu</label>
                         <input name="menu" type="text" id="input_tags" class="form-control @error('menu') is-invalid @enderror"/>
+=======
+
+                    <div class="mb-3">
+                        <label class="form-label">Menu</label>
+                        <input type="text" name="menu" id="tags_menu"
+                            class="form-control @error('menu') is-invalid @enderror">
+>>>>>>> 1c1117dc1932bd01c86c1bd638a7746d97e1d1b9
                         @error('menu')
                             <div class="form-control-feedback text-danger">{{ $message }}</div>
                         @enderror
@@ -62,9 +70,19 @@
 
     @push('scripts')
         <script>
+<<<<<<< HEAD
             $(document).ready(function() {
                 $('#select2').select2();
                 $('#input_tags').tagsInput();
+=======
+            document.addEventListener('DOMContentLoaded', function() {
+                $(document).ready(function() {
+                    $('#select2').select2();
+                });
+
+                var input = document.getElementById('tags_menu');
+                new Tagify(input);
+>>>>>>> 1c1117dc1932bd01c86c1bd638a7746d97e1d1b9
             });
 
 
