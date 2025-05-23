@@ -43,6 +43,13 @@
                             <div class="form-control-feedback text-danger">{{ $message }}</div>
                         @enderror
                     </div>
+                    <div class="mb-3">
+                        <label class="form-label">Menu</label>
+                        <input name="menu" type="text" id="input_tags" class="form-control @error('menu') is-invalid @enderror"/>
+                        @error('menu')
+                            <div class="form-control-feedback text-danger">{{ $message }}</div>
+                        @enderror
+                    </div>
                     <div class="flex justify-content-start">
                         <button type="submit" class="btn btn-primary">
                             Submit
@@ -57,7 +64,11 @@
         <script>
             $(document).ready(function() {
                 $('#select2').select2();
+                $('#input_tags').tagsInput();
             });
+
+
         </script>
+
     @endpush
 @endsection

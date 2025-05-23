@@ -21,7 +21,8 @@ class RumahMakanRequest extends FormRequest
                 Rule::unique('rumah_makans', 'name')->ignore($this->route('rumah_makan')),
             ],
             'fasilitas' => 'required|array|min:1|exists:fasilitas,id',
-            'desc' => 'required|string'
+            'desc' => 'required|string',
+            'menu' => 'required|array|min:1'
         ];
     }
 
@@ -36,6 +37,8 @@ class RumahMakanRequest extends FormRequest
             'fasilitas.exists' => 'Salah satu fasilitas yang dipilih tidak valid.',
             'desc.required' => 'Deskripsi harus diisi.',
             'desc.string' => 'Deskripsi harus berupa teks.',
+            'menu.array' => 'menu harus berupa daftar.',
+            'menu.min' => 'Pilih minimal satu menu.',
         ];
     }
 }

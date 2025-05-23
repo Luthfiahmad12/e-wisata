@@ -17,22 +17,25 @@ class FasilitasController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+   public function create()
     {
-        //
+        return view('fasilitas.create');
     }
+
 
     /**
      * Store a newly created resource in storage.
      */
-     public function store(FasilitasRequest $request)
+    public function store(FasilitasRequest $request)
     {
         Fasilitas::create([
             'name' => $request->name,
         ]);
 
-        return redirect()->back()->with('success', 'Fasilitas berhasil ditambahkan');
+        return redirect()->route('fasilitas.index')->with('success', 'Fasilitas berhasil ditambahkan');
     }
+
+
 
     /**
      * Display the specified resource.
